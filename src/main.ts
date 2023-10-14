@@ -10,7 +10,7 @@ export async function run(): Promise<void> {
   try {
     const serviceJsonStr = core.getInput('serviceJsonStr')
     const serviceJsonFilePath = core.getInput('serviceJsonFilePath')
-    const languageField = core.getInput('languageTypeField')
+    const languageTypeField = core.getInput('languageTypeField')
     const languageVersionField = core.getInput('languageVersionField')
 
     // Get service information
@@ -23,7 +23,7 @@ export async function run(): Promise<void> {
 
     // Extract language version information from service
     for (const index in serviceObject) {
-      let languageType = serviceObject[index][languageField]
+      let languageType = serviceObject[index][languageTypeField]
       let languageVersion = serviceObject[index][languageVersionField]
       if (languageType === undefined) {
         languageType = ''
