@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - testWorkflow
       - 'releases/*'
 
 jobs:
@@ -53,6 +54,7 @@ jobs:
         id: test-action
         uses: ./
         with:
+          serviceJsonStr: '[{"name":"matrix-cloud-blockchain-syncer","type":"service","language":["java"],"languageEnv":"java","languageEnvVersion":"11","report":"","projectPath":["matrix-cloud-blockchain-syncer"],"_":null,"coverage":0},{"name":"matrix-cloud-flow-service-grpc","type":"library","language":["golang"],"languageEnv":"golang","languageEnvVersion":"1.20","report":"","projectPath":["matrix-cloud-flow-service-grpc"],"_":null,"coverage":0}]'
           serviceJsonFilePath: "service.json"
           languageTypeField: languageEnv
           languageVersionField: languageEnvVersion
