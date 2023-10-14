@@ -1,4 +1,5 @@
 import * as core from '@actions/core'
+import * as fs from 'fs'
 import { wait } from './wait'
 
 /**
@@ -7,18 +8,39 @@ import { wait } from './wait'
  */
 export async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
+    const serviceJsonStr = core.getInput('serviceJsonStr')
+    const serviceJsonFilePath = core.getInput('serviceJsonFilePath')
+    const languageField = core.getInput('languageTypeField')
+    const languageVersionField = core.getInput('languageVersionField')
 
-    // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-    core.debug(`Waiting ${ms} milliseconds ...`)
+    // Get service information
+    let serviceJsonStrNew = serviceJsonStr
+    if (serviceJsonStrNew === '') {
+      serviceJsonStrNew = fs.readFileSync(serviceJsonFilePath, 'utf-8')
+    }
+    const serviceObject = JSON.parse(serviceJsonStrNew)
+    const languageEnvArray: string[] = []
 
-    // Log the current timestamp, wait, then log the new timestamp
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
+    // Extract language version information from service
+    for (const index in serviceObject) {
+      let languageType = serviceObject[index][languageField]
+      let languageVersion = serviceObject[index][languageVersionField]
+      if (languageType === undefined) {
+        languageType = ''
+      }
+      if (languageVersion === undefined) {
+        languageVersion = ''
+      }
+      const languageStr = languageType.concat('/', languageVersion)
+      languageEnvArray.push(languageStr)
+    }
+
+    // Array deduplication
+    const result = Array.from(new Set(languageEnvArray))
+    console.log(result)
 
     // Set outputs for other workflow steps to use
-    core.setOutput('time', new Date().toTimeString())
+    core.setOutput('languageEnv', result)
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)

@@ -4,15 +4,27 @@ author: 'Your name or organization here'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  serviceJsonStr:
+    description: 'json string that stores service information'
+    required: false
+    default: ''
+  serviceJsonFilePath:
+    description: 'the local address of the json file that stores service information'
+    required: false
+    default: ''
+  languageTypeField:
+    description: 'the field about language env type'
     required: true
-    default: '1000'
+    default: 'languageEnvType'
+  languageVersionField:
+    description: 'the field about language env version'
+    required: true
+    default: 'languageEnvVersion'
 
 # Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  languageEnv:
+    description: 'all language env info in services'
 
 runs:
   using: node20
