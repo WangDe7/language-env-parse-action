@@ -49,12 +49,17 @@ jobs:
         id: checkout
         uses: actions/checkout@v4
 
+      - name: storage service
+        run: |
+          echo "[{\"name\":\"matrix-cloud-blockchain-syncer\",\"type\":\"service\",\"language\":[\"java\"],\"languageEnvType\":\"java\",\"languageEnvVersion\":\"11\",\"report\":\"https\",\"projectPath\":[\"matrix-cloud-blockchain-syncer\"],\"_\":null,\"coverage\":0},{\"name\":\"matrix-cloud-flow-service-grpc\",\"type\":\"library\",\"language\":[\"golang\"],\"languageEnvType\":\"golang\",\"languageEnvVersion\":\"1.20\",\"report\":\"\",\"projectPath\":[\"matrix-cloud-flow-service-grpc\"],\"_\":null,\"coverage\":0}]" > /tmp/service.json
+          cat /tmp/service.json
+      
       - name: Test Local Action
         id: test-action
         uses: ./
         with:
           serviceJsonFilePath: "service.json"
-          languageTypeField: languageEnv
+          languageTypeField: languageEnvType
           languageVersionField: languageEnvVersion
 
       - name: Print Output
