@@ -26,12 +26,18 @@ describe('action', () => {
     jest.clearAllMocks()
   })
 
-  it('sets the time output', async () => {
+  it('sets the output', async () => {
     // Set the action's inputs as return values from core.getInput()
     getInputMock.mockImplementation((name: string): string => {
       switch (name) {
-        case 'milliseconds':
-          return '500'
+        case 'serviceJsonStr':
+          return '[{"name":"matrix-cloud-blockchain-syncer","type":"service","language":["java"],"languageEnvType":"java","languageEnvVersion":"11","report":"","projectPath":["matrix-cloud-blockchain-syncer"],"_":null,"coverage":0},{"name":"matrix-cloud-flow-service-grpc","type":"library","language":["golang"],"languageEnvType":"golang","languageEnvVersion":"1.20","report":"","projectPath":["matrix-cloud-flow-service-grpc"],"_":null,"coverage":0}]'
+        case 'serviceJsonFilePath':
+          return 'service.json'
+        case 'languageTypeField':
+          return 'languageEnvType'
+        case 'languageEnvVersion':
+          return 'languageEnvVersion'
         default:
           return ''
       }
@@ -41,28 +47,31 @@ describe('action', () => {
     expect(runMock).toHaveReturned()
 
     // Verify that all of the core library functions were called correctly
-    expect(debugMock).toHaveBeenNthCalledWith(1, 'Waiting 500 milliseconds ...')
-    expect(debugMock).toHaveBeenNthCalledWith(
-      2,
-      expect.stringMatching(timeRegex)
-    )
-    expect(debugMock).toHaveBeenNthCalledWith(
-      3,
-      expect.stringMatching(timeRegex)
-    )
-    expect(setOutputMock).toHaveBeenNthCalledWith(
-      1,
-      'time',
-      expect.stringMatching(timeRegex)
-    )
+    // expect(debugMock).toHaveBeenNthCalledWith(1, 'Waiting 500 milliseconds ...')
+    // expect(debugMock).toHaveBeenNthCalledWith(
+    //   2,
+    //   expect.stringMatching(timeRegex)
+    // )
+    // expect(debugMock).toHaveBeenNthCalledWith(
+    //   3,
+    //   expect.stringMatching(timeRegex)
+    // )
+    expect(setOutputMock).toHaveBeenNthCalledWith(1, 'languageEnv', [
+      'java/11',
+      'golang/1.20'
+    ])
   })
 
   it('sets a failed status', async () => {
     // Set the action's inputs as return values from core.getInput()
     getInputMock.mockImplementation((name: string): string => {
       switch (name) {
-        case 'milliseconds':
-          return 'this is not a number'
+        case 'serviceJsonFilePath':
+          return 'fakeService.json'
+        case 'languageTypeField':
+          return 'languageEnvType'
+        case 'languageEnvVersion':
+          return 'languageEnvVersion'
         default:
           return ''
       }
