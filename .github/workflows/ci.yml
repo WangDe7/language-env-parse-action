@@ -58,7 +58,7 @@ jobs:
         id: test-action
         uses: ./
         with:
-          serviceJsonFilePath: "service.json"
+          serviceJsonFilePath: "/tmp/service.json"
           languageTypeField: languageEnvType
           languageVersionField: languageEnvVersion
 
