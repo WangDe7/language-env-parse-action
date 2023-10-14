@@ -1,0 +1,49 @@
+[{
+	"name": "matrix-cloud-etl-service",
+	"type": "service",
+	"language": ["java"],
+	"report": "https://d3p3arc4rj73mc.cloudfront.net/WhiteMatrixTech/matrix-cloud-monorepo/pr2262/matrix-cloud-etl-service/jacoco-report/index.html",
+	"projectPath": ["matrix-cloud-etl-service"],
+	"_": null,
+	"coverage": 0
+}, {
+	"name": "matrix-cloud-syncer",
+	"type": "service",
+	"language": ["java"],
+    "languageEnv": "java",
+    "languageEnvVersion": "7",
+	"report": "https://d3p3arc4rj73mc.cloudfront.net/WhiteMatrixTech/matrix-cloud-monorepo/pr2262/matrix-cloud/matrix-cloud-syncer/jacoco-report/index.html",
+	"projectPath": ["matrix-cloud", "matrix-cloud-syncer"],
+	"_": null,
+	"coverage": 0
+}, {
+	"name": "matrix-cloud-app-service",
+	"type": "service",
+	"language": ["java"],
+    "languageEnv": "java",
+    "languageEnvVersion": "8",
+	"report": "https://d3p3arc4rj73mc.cloudfront.net/WhiteMatrixTech/matrix-cloud-monorepo/pr2262/matrix-cloud-app-service/jacoco-report/index.html",
+	"projectPath": ["matrix-cloud-app-service"],
+	"_": null,
+	"coverage": 0
+}, {
+	"name": "matrix-cloud-blockchain-syncer",
+	"type": "service",
+	"language": ["java"],
+    "languageEnv": "java",
+    "languageEnvVersion": "11",
+	"report": "https://d3p3arc4rj73mc.cloudfront.net/WhiteMatrixTech/matrix-cloud-monorepo/pr2262/matrix-cloud-blockchain-syncer/jacoco-report/index.html",
+	"projectPath": ["matrix-cloud-blockchain-syncer"],
+	"_": null,
+	"coverage": 0
+}, {
+	"name": "matrix-cloud-flow-service-grpc",
+	"type": "library",
+	"language": ["golang"],
+    "languageEnv": "golang",
+    "languageEnvVersion": "1.20",
+	"report": "",
+	"projectPath": ["matrix-cloud-flow-service-grpc"],
+	"_": null,
+	"coverage": 0
+}]
