@@ -41,6 +41,8 @@ async function run() {
         if (serviceJsonStrNew === '') {
             serviceJsonStrNew = fs.readFileSync(serviceJsonFilePath, 'utf-8');
         }
+        console.log('----get the service information----');
+        console.log(serviceJsonStrNew);
         const serviceObject = JSON.parse(serviceJsonStrNew);
         const languageEnvArray = [];
         // Extract language version information from service
@@ -58,14 +60,19 @@ async function run() {
         }
         // Array deduplication
         const result = Array.from(new Set(languageEnvArray));
+        console.log('----get the language env information----');
         console.log(result);
         // Set outputs for other workflow steps to use
         core.setOutput('languageEnv', result);
     }
     catch (error) {
         // Fail the workflow run if an error occurs
-        if (error instanceof Error)
+        if (error instanceof Error) {
             core.setFailed(error.message);
+        }
+        else {
+            core.setFailed('An error occurred while parsing the locale');
+        }
     }
 }
 exports.run = run;
